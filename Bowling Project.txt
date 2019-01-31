@@ -7,3 +7,5 @@ Théo PAQUET
 Notre projet est un jeu de bowling sous python muni d'une interface Tkinter 
 
 Pour pouvoir jouer nous utiliserons une jauge de position et une jauge de puissance pour lancer la boule sur la piste 
+
+Le jeu se fera en 10 manches avec 2 lancers par manches (sauf si strike) a part sur la 10eme manche où l'on peut faire 3 lancer en faisant un spare ou un strike au 1er ou 2eme lancer
