@@ -1,0 +1,9 @@
+ISN PROJECT BOWLING
+
+Mélanie GEAY
+Rémi PIGNOT
+Théo PAQUET
+
+Notre projet est un jeu de bowling sous python muni d'une interface Tkinter 
+
+Pour pouvoir jouer nous utiliserons une jauge de position et une jauge de puissance pour lancer la boule sur la piste 
