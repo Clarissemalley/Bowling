@@ -1,9 +1,9 @@
-from tkinter import * 
+import tkinter as tk
 
-fenetre = Tk()
+fenetre = tk.Tk()
 
 
-scale=Scale(fenetre, orient='vertical', from_=10, to=0,
+scale=tk.Scale(fenetre, orient='vertical', from_=10, to=0,
       resolution=1, tickinterval=2, length=350,
       label='Puissance')
 scale.pack()
