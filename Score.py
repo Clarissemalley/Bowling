@@ -2,10 +2,8 @@ from tkinter import *
 
 fenetre = Tk()
 
-Label(fenetre, text='Tour', borderwidth=1).grid(row=1, column=1)
-Label(fenetre, text='J1', borderwidth=1).grid(row=2, column=1)
-
-tr1 = IntVar(0) #variable spéciale
+#Scores manches 1 à 10
+tr1 = IntVar(0)
 tr2 = IntVar(0)
 tr3 = IntVar(0)
 tr4 = IntVar(0)
@@ -17,7 +15,7 @@ tr9 = IntVar(0)
 tr10 = IntVar(0)
 
 tr1.set(2)
-tr2.set(8) #s=8
+tr2.set(8)
 tr3.set(6)
 tr4.set(3)
 tr5.set(9)
@@ -27,7 +25,15 @@ tr8.set(10)
 tr9.set(5)
 tr10.set(1)
 
+#Score total
 total = tr1.get()+tr2.get()+tr3.get()+tr4.get()+tr5.get()+tr6.get()+tr7.get()+tr8.get()+tr9.get()+tr10.get()
+
+#Création du tableau
+Label(fenetre, text='Tour', borderwidth=1).grid(row=1, column=1)
+Label(fenetre, text='J1', borderwidth=1).grid(row=2, column=1)
+
+Label(fenetre, text=total, borderwidth=3).grid(row=2, column=12)
+Label(fenetre, text='Total', borderwidth=3).grid(row=1, column=12)
 
 for colonne in range(2, 12):
     Label(fenetre, text=str(colonne-1), borderwidth=3).grid(row=1, column=colonne)
@@ -41,8 +47,5 @@ for colonne in range(2, 12):
     Label(fenetre, textvar=tr8, borderwidth=3).grid(row=2, column=9)
     Label(fenetre, textvar=tr9, borderwidth=3).grid(row=2, column=10)
     Label(fenetre, textvar=tr10, borderwidth=3).grid(row=2, column=11)
-
-Label(fenetre, text=total, borderwidth=3).grid(row=2, column=12)
-Label(fenetre, text='Total', borderwidth=3).grid(row=1, column=12)
 
 fenetre.mainloop()
