@@ -1,42 +1,73 @@
 import tkinter as tk
- 
-def deplacement():
-    global dx, dy
-    x1, y1, x2, y2 = canvas.coords(balle1)
-    if tk.find_overlapping(canvas.coords(quille), x1, y1, x2, y2):
-        dy=-1*dy
-    
-    canvas.move(balle1,dx,dy)
-    
-    tk.after(20,deplacement)
-    if y1== canvas.coords(quille)[3]:
-        canvas.coords(balle1,x1,y1,x2,y2)
-def haut(event):
-    global dx, dy
-    dx=0
-    dy=-5
- 
+
 Pos_Xba=200
 Pos_Yba=330
+
+Pos_Xqumid=200
+Pos_Yqumid=20
+
+def deplacement():
+    global dx, dy
+    X1, Y1, X2, Y2 = canvas.coords(quille)
+    x1, y1, x2, y2 = canvas.coords(balle1)
+    canvas.move(balle1,dx,dy)
+    fen.after(20,deplacement)
+    if len(canvas.find_overlapping(x1,y1,x2,y2))>1:
+        dx=+1
+    if x1<=0:
+        dx=angle.get()
+    if x2>=500:
+        dx=-angle.get()
+        
+def eclatagedequille():
+    
+def haut(event):
+    global dx, dy
+    dx = angle.get()
+    dy = -vitesse.get()
+
+def Droite():
+    x1, y1, x2, y2 = canvas.coords(balle1)
+    canvas.coords(balle1,x1+20,y1,x2+20,y2)
+
+def Gauche():
+    x1, y1, x2, y2 = canvas.coords(balle1)
+    canvas.coords(balle1,x1-20,y1,x2-20,y2)
+
+fen = tk.Tk()
+canvas = tk.Canvas(fen,width = 500, height = 400 , bd=0, bg="white")
+canvas.pack(padx=10,pady=10)
+
+balle1 = canvas.create_oval(Pos_Xba,Pos_Yba,Pos_Xba+50,Pos_Yba+50, fill='black')
+quille= canvas.create_oval(Pos_Xqumid,Pos_Yqumid,Pos_Xqumid+20,Pos_Yqumid+20,fill='black')
+
+angle = tk.DoubleVar(value=0)
+vitesse= tk.DoubleVar(value=0)
+scaledir=tk.Scale(fen, orient='horizontal', from_=-10, to=10,
+      resolution=1, tickinterval=2, length=350,
+      variable = angle,
+      label='Direction')
+scaledir.pack() 
+
+scalePui=tk.Scale(fen, orient='vertical', from_=10, to=1,
+      resolution=1, tickinterval=2, length=350,
+      variable = vitesse,
+      label='Puissance')
+scalePui.pack() 
+
 dx=0
 dy=0
 
-Pos_Xqu=200
-Pos_Yqu=20
 
-canvas = tk.Canvas(tk,width = 500, height = 400 , bd=0, bg="white")
-canvas.pack(padx=10,pady=10)
- 
-Bouton_Quitter=tk.Button(tk, text ='Quitter', command = tk.destroy)
+Bouton_Quitter=tk.Button(fen, text ='Quitter', command = fen.destroy)
 Bouton_Quitter.pack()
- 
 
-balle1 = canvas.create_oval(Pos_Xba,Pos_Yba,Pos_Xba+50,Pos_Yba+50,fill='red')
-quille= canvas.create_oval(Pos_Xqu,Pos_Yqu,Pos_Xqu+20,Pos_Yqu+20,fill='black')
- 
 canvas.bind_all('<Up>', haut)
  
-deplacement()
- 
+tk.Button(fen,text='Droite',command=Droite).pack()
+tk.Button(fen,text='Gauche',command=Gauche).pack()
 
-tk.mainloop()
+ 
+deplacement()
+
+fen.mainloop()
