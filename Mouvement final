@@ -1,0 +1,87 @@
+import tkinter as tk
+
+Pos_Xba=130
+Pos_Yba=720
+
+pttr1=0
+
+def deplacement():
+    global dx, dy
+    x1, y1, x2, y2 = canvas.coords(boule)
+    canvas.move(boule,dx,dy)
+    fen.after(20,deplacement)
+    if len(canvas.find_overlapping(x1,y1,x2,y2))>1:
+        dx=+1
+    if x1<=0:
+        dx=angle.get()
+    if x2>=310:
+        dx=-angle.get()
+
+
+def haut(event):
+    global dx, dy
+    dx = angle.get()
+    dy = -vitesse.get()
+
+def Droite():
+    x1, y1, x2, y2 = canvas.coords(balle1)
+    canvas.coords(balle1,x1+20,y1,x2+20,y2)
+
+def Gauche():
+    x1, y1, x2, y2 = canvas.coords(balle1)
+    canvas.coords(balle1,x1-20,y1,x2-20,y2)
+
+def score():
+    if len(canvas.find_overlapping(x1,y1,x2,y2))>1:
+        pttr1=pttr1+1
+
+
+fen = tk.Tk()
+
+canvas = tk.Canvas(fen,width = 310, height = 800, bd=0, bg="white")
+canvas.grid(row=1,column=4,padx=10,pady=5)
+
+boule = canvas.create_oval(Pos_Xba,Pos_Yba,Pos_Xba+50,Pos_Yba+50, fill='black')
+
+quille1= canvas.create_oval(100,20,120,40,fill='black')
+quille2= canvas.create_oval(130,20,150,40,fill='black')
+quille3= canvas.create_oval(160,20,180,40,fill='black')
+quille4= canvas.create_oval(190,20,210,40,fill='black')
+quille5= canvas.create_oval(115,50,135,70,fill='black')
+quille6= canvas.create_oval(145,50,165,70,fill='black')
+quille7= canvas.create_oval(175,50,195,70,fill='black')
+quille8= canvas.create_oval(130,80,150,100,fill='black')
+quille9= canvas.create_oval(160,80,180,100,fill='black')
+quille10= canvas.create_oval(145,110,165,130,fill='black')
+
+angle = tk.DoubleVar(value=0)
+vitesse= tk.DoubleVar(value=0)
+scaledir=tk.Scale(fen, orient='horizontal', from_=-10, to=10,
+      resolution=1, tickinterval=2, length=250,
+      variable = angle,
+      label='Direction',)
+scaledir.grid(row=2,column=4,pady=5)
+
+scalePui=tk.Scale(fen, orient='vertical', from_=10, to=1,
+      resolution=1, length=250,
+      variable = vitesse,
+      label='Puissance')
+scalePui.grid(row=1,column=6,padx=15)
+
+
+dx=0
+dy=0
+
+
+Bouton_Quitter=tk.Button(fen, text ='Quitter', command = fen.destroy)
+Bouton_Quitter.grid(row=4,column=4,sticky='')
+
+canvas.bind_all('<Up>', haut)
+
+tk.Button(fen,text='Droite',command=Droite).grid(row=3,column=4,sticky='sw',padx=5,pady=5)
+tk.Button(fen,text='Gauche',command=Gauche).grid(row=3,column=4,sticky='se',padx=5,pady=5)
+
+
+deplacement()
+
+fen.mainloop()
