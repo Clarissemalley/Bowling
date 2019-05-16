@@ -1,4 +1,4 @@
-﻿import tkinter as tk
+import tkinter as tk
 
 Pos_X=720 #Position Initial de la boule sur l'axe X
 Pos_Y=130 #Position Initial de la boule sur l'axe Y
@@ -8,7 +8,7 @@ fen = tk.Tk()
 canvas = tk.Canvas(fen,width = 800, height = 310, bd=0, bg="white")
 canvas.grid(row=1,column=1,padx=10,pady=5)
 
-Nbtours
+Touractuel=-1
 
 quille1= 0
 quille2= 0
@@ -29,9 +29,23 @@ def Créationboule():
     # Création de la Boule
     boule = canvas.create_oval(Pos_X,Pos_Y,Pos_X+40,Pos_Y+40, fill='black')
 
+def videpiste():
+   canvas.delete(quille1)
+   canvas.delete(quille2)
+   canvas.delete(quille3)
+   canvas.delete(quille4)
+   canvas.delete(quille5)
+   canvas.delete(quille6)
+   canvas.delete(quille7)
+   canvas.delete(quille8)
+   canvas.delete(quille9)
+   canvas.delete(quille10)
+
 def miseenplace():
     #Création des quilles
-    global quille1,quille2,quille3,quille4,quille5,quille6,quille7,quille8,quille9,quille10
+    global quille1,quille2,quille3,quille4,quille5,quille6,quille7,quille8,quille9,quille10,Touractuel
+    Touractuel=Touractuel+1
+    videpiste()
     quille1= canvas.create_oval(20, 85,40,105,fill='black')
     quille2= canvas.create_oval(20, 125,40,145,fill='black')
     quille3= canvas.create_oval(20, 165,40,185,fill='black')
@@ -71,34 +85,34 @@ def score():
     global quille1,quille2,quille3,quille4,quille5,quille6,quille7,quille8,quille9,quille10
     if len(canvas.find_overlapping(20, 85,40,105))>1:
         canvas.delete(quille1)
-        tr1.set(tr1.get()+1)
+        list_tour[Touractuel].set(list_tour[Touractuel].get()+1)
     if len(canvas.find_overlapping(20, 125,40,145))>1:
         canvas.delete(quille2)
-        tr1.set(tr1.get()+1)
+        list_tour[Touractuel].set(list_tour[Touractuel].get()+1)
     if len(canvas.find_overlapping(20, 165,40,185))>1:
         canvas.delete(quille3)
-        tr1.set(tr1.get()+1)
+        list_tour[Touractuel].set(list_tour[Touractuel].get()+1)
     if len(canvas.find_overlapping(20, 205,40,225))>1:
         canvas.delete(quille4)
-        tr1.set(tr1.get()+1)
+        list_tour[Touractuel].set(list_tour[Touractuel].get()+1)
     if len(canvas.find_overlapping(60,105,80,125))>1:
         canvas.delete(quille5)
-        tr1.set(tr1.get()+1)
+        list_tour[Touractuel].set(list_tour[Touractuel].get()+1)
     if len(canvas.find_overlapping(60,145,80,165))>1:
         canvas.delete(quille6)
-        tr1.set(tr1.get()+1)
+        list_tour[Touractuel].set(list_tour[Touractuel].get()+1)
     if len(canvas.find_overlapping(60,185,80,205))>1:
         canvas.delete(quille7)
-        tr1.set(tr1.get()+1)
+        list_tour[Touractuel].set(list_tour[Touractuel].get()+1)
     if len(canvas.find_overlapping(100,125,120,145))>1:
         canvas.delete(quille8)
-        tr1.set(tr1.get()+1)
+        list_tour[Touractuel].set(list_tour[Touractuel].get()+1)
     if len(canvas.find_overlapping(100,165,120,185))>1:
         canvas.delete(quille9)
-        tr1.set(tr1.get()+1)
+        list_tour[Touractuel].set(list_tour[Touractuel].get()+1)
     if len(canvas.find_overlapping(140,145,160,165))>1:
         canvas.delete(quille10)
-        tr1.set(tr1.get()+1)
+        list_tour[Touractuel].set(list_tour[Touractuel].get()+1)
 
 
 
@@ -130,19 +144,19 @@ list_tour=[tk.IntVar(0),
  tk.IntVar(0),
  tk.IntVar(0)]
 
-tr1.set(0)
-tr2.set(0)
-tr3.set(0)
-tr4.set(0)
-tr5.set(0)
-tr6.set(0)
-tr7.set(0)
-tr8.set(0)
-tr9.set(0)
-tr10.set(0)
+list_tour[0].set(0)
+list_tour[1].set(0)
+list_tour[2].set(0)
+list_tour[3].set(0)
+list_tour[4].set(0)
+list_tour[5].set(0)
+list_tour[6].set(0)
+list_tour[7].set(0)
+list_tour[8].set(0)
+list_tour[9].set(0)
 
 #Score total
-total = tr1.get()+tr2.get()+tr3.get()+tr4.get()+tr5.get()+tr6.get()+tr7.get()+tr8.get()+tr9.get()+tr10.get()
+total = list_tour[0].get()+list_tour[1].get()+list_tour[2].get()+list_tour[3].get()+list_tour[4].get()+list_tour[5].get()+list_tour[6].get()+list_tour[7].get()+list_tour[8].get()+list_tour[9].get()
 
 #Création du tableau
 tk.Label(fen, text='Tour', borderwidth=1).grid(row=3, column=8)
@@ -153,16 +167,16 @@ tk.Label(fen, text='Total', borderwidth=3).grid(row=3, column=20)
 
 for colonne in range(10, 20):
     tk.Label(fen, text=str(colonne-9), borderwidth=3).grid(row=3, column=colonne)
-    tk.Label(fen, textvar=tr1, borderwidth=3).grid(row=4, column=10)
-    tk.Label(fen, textvar=tr2, borderwidth=3).grid(row=4, column=11)
-    tk.Label(fen, textvar=tr3, borderwidth=3).grid(row=4, column=12)
-    tk.Label(fen, textvar=tr4, borderwidth=3).grid(row=4, column=13)
-    tk.Label(fen, textvar=tr5, borderwidth=3).grid(row=4, column=14)
-    tk.Label(fen, textvar=tr6, borderwidth=3).grid(row=4, column=15)
-    tk.Label(fen, textvar=tr7, borderwidth=3).grid(row=4, column=16)
-    tk.Label(fen, textvar=tr8, borderwidth=3).grid(row=4, column=17)
-    tk.Label(fen, textvar=tr9, borderwidth=3).grid(row=4, column=18)
-    tk.Label(fen, textvar=tr10, borderwidth=3).grid(row=4, column=19)
+    tk.Label(fen, textvar=list_tour[0], borderwidth=3).grid(row=4, column=10)
+    tk.Label(fen, textvar=list_tour[1], borderwidth=3).grid(row=4, column=11)
+    tk.Label(fen, textvar=list_tour[2], borderwidth=3).grid(row=4, column=12)
+    tk.Label(fen, textvar=list_tour[3], borderwidth=3).grid(row=4, column=13)
+    tk.Label(fen, textvar=list_tour[4], borderwidth=3).grid(row=4, column=14)
+    tk.Label(fen, textvar=list_tour[5], borderwidth=3).grid(row=4, column=15)
+    tk.Label(fen, textvar=list_tour[6], borderwidth=3).grid(row=4, column=16)
+    tk.Label(fen, textvar=list_tour[7], borderwidth=3).grid(row=4, column=17)
+    tk.Label(fen, textvar=list_tour[8], borderwidth=3).grid(row=4, column=18)
+    tk.Label(fen, textvar=list_tour[9], borderwidth=3).grid(row=4, column=19)
 
 
 
