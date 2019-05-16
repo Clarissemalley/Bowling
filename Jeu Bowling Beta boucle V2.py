@@ -8,6 +8,8 @@ fen = tk.Tk()
 canvas = tk.Canvas(fen,width = 800, height = 310, bd=0, bg="white")
 canvas.grid(row=1,column=1,padx=10,pady=5)
 
+Nbtours
+
 quille1= 0
 quille2= 0
 quille3= 0
@@ -22,7 +24,7 @@ quille10= 0
 boule= canvas.create_oval(0,0,0,0, fill='black')
 
 def Créationboule():
-    global boule
+    global boule,dx,dy
     X1, Y1, X2, Y2 = canvas.coords(boule)
     # Création de la Boule
     boule = canvas.create_oval(Pos_X,Pos_Y,Pos_X+40,Pos_Y+40, fill='black')
@@ -44,18 +46,29 @@ def miseenplace():
 def deplacement():
     """Gère les déplacements de la boule et ses collisions avec les objets et
     les bords de la piste"""
-    global dx, dy
+    global dx, dy, boule
     X1, Y1, X2, Y2 = canvas.coords(boule)
     canvas.move(boule,dx,dy)
     fen.after(20,deplacement)
 
     # Fais rebondir la boule sur les bords de la piste en fonction de son angle d'arrivée
     if Y1<=0:
-            dy=-angle.get()
+        dy=-angle.get()
     if Y2>=310:
-            dy=angle.get()
+        dy=angle.get()
+
+    score()
+
+    if X1<0:
+        canvas.delete(boule)
+        dx=0
+        dy=0
+        boule = canvas.create_oval(Pos_X,Pos_Y,Pos_X+40,Pos_Y+40, fill='black')
 
 
+
+def score():
+    global quille1,quille2,quille3,quille4,quille5,quille6,quille7,quille8,quille9,quille10
     if len(canvas.find_overlapping(20, 85,40,105))>1:
         canvas.delete(quille1)
         tr1.set(tr1.get()+1)
@@ -106,16 +119,16 @@ def Haut():
     canvas.coords(boule,X1,Y1-20,X2,Y2-20)
 
 # Création des variables scores
-tr1 = tk.IntVar(0)
-tr2 = tk.IntVar(0)
-tr3 = tk.IntVar(0)
-tr4 = tk.IntVar(0)
-tr5 = tk.IntVar(0)
-tr6 = tk.IntVar(0)
-tr7 = tk.IntVar(0)
-tr8 = tk.IntVar(0)
-tr9 = tk.IntVar(0)
-tr10 = tk.IntVar(0)
+list_tour=[tk.IntVar(0),
+ tk.IntVar(0),
+ tk.IntVar(0),
+ tk.IntVar(0),
+ tk.IntVar(0),
+ tk.IntVar(0),
+ tk.IntVar(0),
+ tk.IntVar(0),
+ tk.IntVar(0),
+ tk.IntVar(0)]
 
 tr1.set(0)
 tr2.set(0)
